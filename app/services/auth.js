@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-import * as api from '../constants';
+import * as api from './api';
 
 export async function login (data) {
   try {
     let res = await axios.post(api.LOGIN, data)
-    return res.data
+    if (res.data)
+      return res.data
   } catch (error) {
-    handler(error)
+    return {error: 1}
   }
 }
 

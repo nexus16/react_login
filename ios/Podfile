@@ -82,7 +82,7 @@ target 'Login_demo' do
   pod 'RNCMaskedView', :path => '../node_modules/@react-native-community/masked-view'
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
-
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   target 'Login_demoTests' do
     inherit! :complete
     # Pods for testing

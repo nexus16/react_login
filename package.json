@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/masked-view": "0.1.9",
     "axios": "^0.19.0",
+    "native-base": "^2.12.1",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-basic-form": "^1.0.4",
@@ -19,9 +20,17 @@
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "2.5.0",
+    "react-native-splash-screen": "^3.2.0",
+    "react-native-vector-icons": "^6.6.0",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^2.0.2"
+    "react-navigation-redux-helpers": "^4.0.1",
+    "react-navigation-stack": "^2.0.2",
+    "react-navigation-tabs": "^2.8.11",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.0.4",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
