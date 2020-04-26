@@ -1,40 +1,34 @@
 import React, {useState,useRef, useEffect} from 'react';
-import {AsyncStorage, StyleSheet} from 'react-native';
-import {
-  SIGN_IN_REQUEST,
-  SIGN_IN_EMAIL_CHANGED,
-  SIGN_IN_PASSWORD_CHANGED
-} from "./actions";
+import {StyleSheet} from 'react-native';
 import { connect } from "react-redux";
+import { Text, View, Container, Content } from "native-base";
+
+import {
+  SIGN_UP_REQUEST,
+} from "./actions";
 import { withNativeBaseContainer } from "../../../hoc/withNativeBaseContainer";
 import { StyledButton } from "../../../components/StyledButton";
 import { StyledFormInput } from "../../../components/StyledFormInput";
 import { StyledText } from "../../../components/StyledText";
 import { StyledForm } from "../../../components/StyledForm";
-import { Text, View, Container, Content } from "native-base";
-import LottieView from "lottie-react-native";
 
-const LogInComponent = ({
-  onRequestSignIn,
+const RegisterComponent = ({
+  error,
+  onRequestSignUp,
   navigation
 }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  let getToken = async () => {
-    let token = await AsyncStorage.getItem('TOKEN_KEY');
-    if (token) {
-      console.log(token)
-      navigation.navigate('Main');
-    }
-  } 
-  getToken();
-  const canRequestSignIn = () => {
-    return email.trim().length > 0 && password.trim().length > 0
-  };
+  const [confirmPassword, setConfirmPassword] = useState();
+  const canRequestSignUp = ()=>{
+    return email.trim().length > 0 &&
+            password.trim().length > 0 &&
+            password === confirmPassword
+  }
   return (
     <Container>
       <Content padder>
-        <StyledForm style={styles.signInForm}>
+        <StyledForm style={styles.signUpForm}>
           <StyledFormInput
             label="Email"
             value={email}
@@ -51,50 +45,37 @@ const LogInComponent = ({
             secureTextEntry
             clearButtonMode="while-editing"
           />
+
+          <StyledFormInput
+            label="Confirm password"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+            clearButtonMode="while-editing"
+          />
         </StyledForm>
-        <StyledText
-          style={styles.forgotPassword}
-          onPress={e => navigation.navigate("ForgotPassword")}
-        >
-          Forgot password?
-        </StyledText>
         <StyledButton
           block
-          disabled={!canRequestSignIn}
-          onPress={() => onRequestSignIn(email, password)}
-          style={styles.signInButton}
+          disabled={!canRequestSignUp}
+          onPress={() => onRequestSignUp(email, password)}
+          style={styles.signUpButton}
         >
-          <StyledText>Log In</StyledText>
+          <StyledText>Sign Up</StyledText>
         </StyledButton>
+
+        {!error ? <React.Fragment /> : <StyledText>{error}</StyledText>}
+
         <StyledText
-          style={styles.dontHaveAccount}
-          onPress={e => navigation.navigate("Register")}
+          style={styles.alreadyHaveAnAccount}
+          onPress={e => navigation.navigate("Login")}
         >
-          I don't have an account
+          I already have an account
         </StyledText>
       </Content>
     </Container>
   );
 };
 
-const mapStateToProps = state => {
-  console.log(state)
-  return {
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onRequestSignIn: (email, password) => {
-      dispatch({type: SIGN_IN_REQUEST, payload: { email, password }})
-    }
-  }
-}
-
-export default Login = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withNativeBaseContainer(LogInComponent));
 const styles = StyleSheet.create({
   headerContainer: {
     display: "flex",
@@ -117,20 +98,32 @@ const styles = StyleSheet.create({
     color: "#bcbcbc",
     textAlign: "center"
   },
-  signInForm: {
+  signUpForm: {
     marginBottom: 20
   },
-  forgotPassword: {
-    textAlign: "right",
-    color: "#b7b7b7",
-    fontSize: 16,
-    marginBottom: 10
-  },
-  signInButton: {
+  signUpButton: {
     marginBottom: 40
   },
-  dontHaveAccount: {
+  alreadyHaveAnAccount: {
     textAlign: "center",
     color: "#00B2E2"
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    error: state.register.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onRequestSignUp: (email, password) =>
+      dispatch({ type: SIGN_UP_REQUEST, payload: { email, password } }),
+  };
+};
+
+export default Register = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNativeBaseContainer(RegisterComponent));

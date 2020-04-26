@@ -1,15 +1,15 @@
 import React, {useState, useContext} from 'react';
-import {Text, View, Button, ActivityIndicator, Alert, TouchableOpacity} from 'react-native';
 import {AsyncStorage} from "react-native";
-import CardComponent from "../../../components/CardComponent";
-import HomeComponent from "./HomeComponent";
 import { connect } from "react-redux";
 
-const HomeContainer = ({
+import SearchComponent from "./SearchComponent";
+const SearchContainer = ({
   navigation
 }) => {
   return (
-    <HomeComponent navigation={navigation}/>
+    <SearchComponent 
+      navigation={navigation}
+    />
   );
 }
 
@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default Home = connect(
+export default Search = connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeContainer);
+)(SearchContainer);

@@ -5,7 +5,9 @@ import {
 import {createStackNavigator} from 'react-navigation-stack';
 import { connect } from 'react-redux';
 import MainNavigator from "./MainNavigator";
-import Login from "../screens/auth/login/index";
+import Login from "../screens/auth/login";
+import Register from "../screens/auth/register";
+import ForgotPassword from "../screens/auth/forgotPassword";
 import {
     createReduxContainer,
     createReactNavigationReduxMiddleware,
@@ -16,7 +18,17 @@ const AuthStack = createStackNavigator({
         screen: Login,
         navigationOptions: {
         }
-    }
+    },
+    Register: {
+        screen: Register,
+        navigationOptions: {
+        }
+    },
+    ForgotPassword: {
+        screen: ForgotPassword,
+        navigationOptions: {
+        }
+    },
 });
 
 const NavContainer =  createAppContainer(

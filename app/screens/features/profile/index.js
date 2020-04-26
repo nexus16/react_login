@@ -1,15 +1,17 @@
+
 import React, {useState, useContext} from 'react';
 import {Text, View, Button, ActivityIndicator, Alert, TouchableOpacity} from 'react-native';
 import {AsyncStorage} from "react-native";
 import CardComponent from "../../../components/CardComponent";
-import HomeComponent from "./HomeComponent";
+import ProfileComponent from "./ProfileComponent";
 import { connect } from "react-redux";
+import { profile } from '../../../services/fakeData';
 
-const HomeContainer = ({
+const ProfileContainer = ({
   navigation
 }) => {
   return (
-    <HomeComponent navigation={navigation}/>
+    <ProfileComponent profile={profile}/>
   );
 }
 
@@ -24,7 +26,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default Home = connect(
+export default Profile = connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeContainer);
+)(ProfileContainer);
